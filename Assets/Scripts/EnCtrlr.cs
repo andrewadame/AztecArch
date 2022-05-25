@@ -4,49 +4,108 @@ using UnityEngine;
 
 public class EnCtrlr : MonoBehaviour
 {
-    Rigidbody2D enRgdBdy;     //Rigidbody of enemy
-    Vector3 dir;                //Direction of enemy
-    public float mveSpd;        //Movement speed
+    private Rigidbody2D enRgdBdy;     //Rigidbody of player
+    private int dir;                //Direction of player
+    //private int lkDir = 0;              //Looking direction of player
+    //private bool mvng = false;          //Is enemy moving
+    [SerializeField]
+    private float dist;
+    private PlyrCtrlr plyr;
 
-    PlyrCtrlr Player;
+    public float mveSpd;                //Movement speed
+    public float mxHlth;                //Max amount of health
+    private float hlth;                 //Current amount of health
+    public enum enState { chase, atk };
+    public enState crntState;
 
-    public float mxHlth;
-    float htlh;
+    public float atkDmg;                //Attack Damage to Enemy
+    public float atkRng;
 
-    public float atkDmg;
+    public float ifrmeTme;              //Max IFrames
+    private float iframes;              //Current IFrames
 
-    public float ifrmeTme;
-    float iframes;
+    //public GameObject melCol;
 
-    public GameObject melCol;
+    Animator anim;                      //Animator
+    SpriteRenderer rend;                //Sprite Renderer
+    string crntAnim;                    //Current Animation State
 
     private void Awake()
     {
+        plyr = FindObjectOfType<PlyrCtrlr>();
         enRgdBdy = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        rend = GetComponent<SpriteRenderer>();
+
+        hlth = mxHlth;
+
+        //FOR TESTING ONLY
+        crntState = enState.chase;
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //Direction enemy is moving
-        //dir = new Vector3(input.x, input.y).normalized;
-
+        if (iframes > 0)
+        {
+            iframes -= Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (iframes > 0)
+        switch (crntState)
         {
-            iframes = Time.deltaTime;
+            case (enState.chase):
+                Chase();
+                break;
+            case (enState.atk):
+                Attack();
+                break;
+        }
+    }
+
+    void Chase()
+    {
+        dist = Vector2.Distance(transform.position, plyr.transform.position);
+        if (plyr.transform.position.y < transform.position.y)
+        {
+            dir = 0;
+        }
+        else if (plyr.transform.position.x > transform.position.x)
+        {
+            dir = 1;
+            rend.flipX = false;
+        }
+        else if (plyr.transform.position.x < transform.position.x)
+        {
+            dir = 1;
+            rend.flipX = true;
+        }
+        else if (plyr.transform.position.y > transform.position.y)
+        {
+            dir = 2;
         }
 
-        //Enemy move
-        enRgdBdy.velocity = dir * mveSpd;
+        if (dist > atkRng)
+        {
+            Vector3 direction = plyr.transform.position - transform.position;
+            enRgdBdy.AddForce(direction * mveSpd * Time.deltaTime);
+        }
+        else
+        {
+            /*
+            if (clDwn <= 0)
+            {
+                crntState = enState.atk;
+            }
+            */
+        }
 
-        //Attack!
+    }
 
-        ///////////
+    void Attack()
+    {
 
     }
 
@@ -54,17 +113,16 @@ public class EnCtrlr : MonoBehaviour
     {
         if (iframes <= 0)
         {
-            iframes = ifrmeTme;
-            htlh -= amt;
-            if (htlh <= 0)
+            hlth -= amt;
+
+            if (hlth <= 0)
             {
                 Die();
             }
         }
     }
-
-    public void Die()
+    void Die()
     {
-
+        gameObject.SetActive(false);
     }
 }
