@@ -216,7 +216,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -226,7 +226,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileSpriteIndex: 8
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -236,7 +236,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -315,10 +315,10 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: -3916144839915156265, guid: d9fe26c9fb40ee5498ccfb02a1168e50, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 6918946423162860644, guid: d9fe26c9fb40ee5498ccfb02a1168e50, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -8332683776000838835, guid: d9fe26c9fb40ee5498ccfb02a1168e50, type: 3}
   - m_RefCount: 1
@@ -330,11 +330,11 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: -5161124614169575443, guid: d9fe26c9fb40ee5498ccfb02a1168e50, type: 3}
   - m_RefCount: 1
+    m_Data: {fileID: 6918946423162860644, guid: d9fe26c9fb40ee5498ccfb02a1168e50, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: 7853480200152713528, guid: d9fe26c9fb40ee5498ccfb02a1168e50, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -3916144839915156265, guid: d9fe26c9fb40ee5498ccfb02a1168e50, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 8
     m_Data:
@@ -8340,6 +8340,7 @@ GameObject:
   - component: {fileID: 1375184737}
   - component: {fileID: 1375184740}
   - component: {fileID: 1375184736}
+  - component: {fileID: 1375184741}
   m_Layer: 0
   m_Name: Plyr1
   m_TagString: Untagged
@@ -8463,7 +8464,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4, y: 0.4}
+    oldSize: {x: 0.4, y: 0.52}
     newSize: {x: 0.4, y: 0.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -8472,3 +8473,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.11920074, y: 0.26987338}
   m_EdgeRadius: 0
+--- !u!95 &1375184741
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375184735}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e546cf1dfc82dd04589b42c86dd76d34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
