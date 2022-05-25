@@ -23,7 +23,7 @@ public class EnMelCol : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<EnCtrlr>().Dmgd(en.atkDmg);
+            collision.gameObject.GetComponent<PlyrCtrlr>().Dmgd(en.atkDmg);
         }
     }
 }

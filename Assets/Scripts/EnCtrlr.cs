@@ -5,8 +5,7 @@ using UnityEngine;
 public class EnCtrlr : MonoBehaviour
 {
     private Rigidbody2D enRgdBdy;     //Rigidbody of player
-    private int dir;                //Direction of player
-    //private int lkDir = 0;              //Looking direction of player
+    private float dir;                //Direction of player
     //private bool mvng = false;          //Is enemy moving
     [SerializeField]
     private float dist;
@@ -20,6 +19,8 @@ public class EnCtrlr : MonoBehaviour
 
     public float atkDmg;                //Attack Damage to Enemy
     public float atkRng;
+    private bool isAtk = false;         //Is Enemy Attacking?
+    private float atkDly = 0.3f;
 
     public float ifrmeTme;              //Max IFrames
     private float iframes;              //Current IFrames
@@ -29,6 +30,15 @@ public class EnCtrlr : MonoBehaviour
     Animator anim;                      //Animator
     SpriteRenderer rend;                //Sprite Renderer
     string crntAnim;                    //Current Animation State
+
+    //Animation States
+    const string ENIDLE = "SlimeIdle";
+    const string ENWLKUP = "SlimeMveUp";
+    const string ENWLKSDE = "SlimeMveSde";
+    const string ENWLKDWN = "SlimeMveDwn";
+    const string ENUPATK = "SlmeAtkUp";
+    const string ENSDEATK = "SlmeAtkSde";
+    const string ENDWNATK = "SlimeAtkDwn";
 
     private void Awake()
     {
@@ -63,28 +73,38 @@ public class EnCtrlr : MonoBehaviour
                 Attack();
                 break;
         }
+
+        anim.SetFloat("dir", dir);
     }
 
     void Chase()
     {
         dist = Vector2.Distance(transform.position, plyr.transform.position);
-        if (plyr.transform.position.y < transform.position.y)
+
+        if (!isAtk)
         {
-            dir = 0;
-        }
-        else if (plyr.transform.position.x > transform.position.x)
-        {
-            dir = 1;
-            rend.flipX = false;
-        }
-        else if (plyr.transform.position.x < transform.position.x)
-        {
-            dir = 1;
-            rend.flipX = true;
-        }
-        else if (plyr.transform.position.y > transform.position.y)
-        {
-            dir = 2;
+            if (plyr.transform.position.y < transform.position.y )
+            {
+                dir = 0;
+                ChangeAnimationState(ENWLKDWN);
+            }
+            else if (plyr.transform.position.y > transform.position.y)
+            {
+                dir = 2;
+                ChangeAnimationState(ENWLKUP);
+            }
+            else if (plyr.transform.position.x > transform.position.x)
+            {
+                dir = 1;
+                ChangeAnimationState(ENWLKSDE);
+                rend.flipX = false;
+            }
+            else if (plyr.transform.position.x < transform.position.x)
+            {
+                dir = 1;
+                ChangeAnimationState(ENWLKSDE);
+                rend.flipX = true;
+            }
         }
 
         if (dist > atkRng)
@@ -94,19 +114,37 @@ public class EnCtrlr : MonoBehaviour
         }
         else
         {
-            /*
-            if (clDwn <= 0)
-            {
+            
+            //if (clDwn <= 0)
+            //{
                 crntState = enState.atk;
-            }
-            */
+            //}
         }
 
     }
 
     void Attack()
     {
+        if (!isAtk)
+        {
+            isAtk = true;
+            if (dir == 0)
+            {
+                ChangeAnimationState(ENDWNATK);
+            }
+            else if (dir == 1)
+            {
+                ChangeAnimationState(ENSDEATK);
+            }
+            else
+            {
+                ChangeAnimationState(ENUPATK);
+            }
 
+            Invoke("AtkComp", atkDly);
+        }
+
+        crntState = enState.chase;
     }
 
     public void Dmgd(float amt)
@@ -124,5 +162,19 @@ public class EnCtrlr : MonoBehaviour
     void Die()
     {
         gameObject.SetActive(false);
+    }
+
+    //Animation Manager
+    void ChangeAnimationState(string newAnimation)
+    {
+        if (crntAnim == newAnimation) return;
+
+        anim.Play(newAnimation);
+        crntAnim = newAnimation;
+    }
+
+    void AtkComp()
+    {
+        isAtk = false;
     }
 }

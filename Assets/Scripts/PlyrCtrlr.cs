@@ -5,12 +5,15 @@ using UnityEngine;
 public class PlyrCtrlr : MonoBehaviour
 {
     private Rigidbody2D plyrRgdBdy;     //Rigidbody of player
+    //public int plyrNm;
     private Vector3 dir;                //Direction of player
     private int lkDir = 0;              //Looking direction of player
     private bool mvng = false;          //Is player moving
 
     public float mveSpd;                //Movement speed
     private Vector2 input;              //Input from player
+    public string inputXNme;
+    public string inputYNme;
     public float mxHlth;                //Max amount of health
     private float hlth;                 //Current amount of health
 
@@ -57,8 +60,8 @@ public class PlyrCtrlr : MonoBehaviour
         }
 
         /////////////////////////CONTROLS/////////////////////////
-        //WASD/ARROW KEYS
-        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //Player Input
+        input = new Vector2(Input.GetAxisRaw(inputXNme), Input.GetAxisRaw(inputYNme));
 
         //Attack check
         if (Input.GetKeyDown(KeyCode.F))
