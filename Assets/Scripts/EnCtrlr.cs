@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlyrCtrlr : MonoBehaviour
+public class EnCtrlr : MonoBehaviour
 {
-    Rigidbody2D plyrRgdBdy;     //Rigidbody of player
-    Vector3 dir;                //Direction of player
+    Rigidbody2D enRgdBdy;     //Rigidbody of enemy
+    Vector3 dir;                //Direction of enemy
     public float mveSpd;        //Movement speed
-    Vector2 input;              //Input from player
+
+    PlyrCtrlr Player;
 
     public float mxHlth;
     float htlh;
@@ -21,32 +22,28 @@ public class PlyrCtrlr : MonoBehaviour
 
     private void Awake()
     {
-        plyrRgdBdy = GetComponent<Rigidbody2D>();
-        
+        enRgdBdy = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        //WASD/ARROW KEYS
-        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        //Direction player is moving
-        dir = new Vector3(input.x, input.y).normalized;
+        //Direction enemy is moving
+        //dir = new Vector3(input.x, input.y).normalized;
 
     }
 
     private void FixedUpdate()
     {
-        if(iframes > 0)
+        if (iframes > 0)
         {
             iframes = Time.deltaTime;
         }
 
-        //Player move
-        plyrRgdBdy.velocity = dir * mveSpd;
-        
+        //Enemy move
+        enRgdBdy.velocity = dir * mveSpd;
+
         //Attack!
 
         ///////////
@@ -59,7 +56,7 @@ public class PlyrCtrlr : MonoBehaviour
         {
             iframes = ifrmeTme;
             htlh -= amt;
-            if(htlh <= 0)
+            if (htlh <= 0)
             {
                 Die();
             }
