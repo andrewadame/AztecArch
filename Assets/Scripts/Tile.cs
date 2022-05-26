@@ -31,6 +31,8 @@ public class Tile : MonoBehaviour
         image.material.color = highlited.color;
         gridParent.selected = gameObject;
         
+
+
     }
     public void UnSelect()
     {

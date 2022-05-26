@@ -17,6 +17,7 @@ public class PlyrCtrlr : MonoBehaviour
     public float mxHlth;                //Max amount of health
     [SerializeField]
     private float hlth;                 //Current amount of health
+    Item itm;
 
     public float atkDmg;                //Attack Damage to Enemy
     public float knockbackAmount = 2.0f;
@@ -47,6 +48,7 @@ public class PlyrCtrlr : MonoBehaviour
         plyrRgdBdy = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
+        itm = FindObjectOfType<Item>();
 
         hlth = mxHlth;
         
@@ -165,10 +167,23 @@ public class PlyrCtrlr : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //If Enemy hits...
         if (collision.tag == "Enemy")
         {
             Vector2 direction = this.transform.position - collision.transform.position;
             this.transform.Translate(direction * knockbackAmount);
+        }
+        //If player touches item
+        if(collision.tag == "Pick-Up")
+        {
+            //Grab Item Holder
+            itm = collision.GetComponent<ItmHolder>().itm;
+            //Add to Attack Damage
+            atkDmg += itm.atkAdd;
+            //Add to Max Health
+            mxHlth += itm.hlthAdd;
+            collision.gameObject.SetActive(false);
+
         }
     }
     //If Player Dies
