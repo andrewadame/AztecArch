@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f38df18fb1353845be6343560d758a6, type: 3}
   m_Name: T2Sword
   m_EditorClassIdentifier: 
-  itmNme: 
-  itmDesc: 
-  sprte: {fileID: 0}
-  atkAdd: 0
+  itmNme: Tier 2 Sword
+  itmDesc: Add +10 Damage
+  atkAdd: 10
   hlthAdd: 0
