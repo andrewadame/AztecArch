@@ -15,9 +15,11 @@ public class PlyrCtrlr : MonoBehaviour
     public string inputXNme;
     public string inputYNme;
     public float mxHlth;                //Max amount of health
+    [SerializeField]
     private float hlth;                 //Current amount of health
 
     public float atkDmg;                //Attack Damage to Enemy
+    public float knockbackAmount = 2.0f;
     private bool isAtkPrssd = false;    //Is Attack button pressed?
     private bool isAtk = false;         //Is Player Attacking?
     private float atkDly = 0.3f;
@@ -152,6 +154,7 @@ public class PlyrCtrlr : MonoBehaviour
         if (iframes <= 0)
         {
             iframes = ifrmeTme;
+
             hlth -= amt;
             if (hlth <= 0)
             {
@@ -160,6 +163,14 @@ public class PlyrCtrlr : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            Vector2 direction = this.transform.position - collision.transform.position;
+            this.transform.Translate(direction * knockbackAmount);
+        }
+    }
     //If Player Dies
     public void Die()
     {
