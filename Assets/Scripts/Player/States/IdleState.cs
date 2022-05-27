@@ -23,6 +23,8 @@ public class IdleState : PlayerState
     public override void LogicUpdate()
     {
         var input = new Vector2(Input.GetAxisRaw("Input1X"), Input.GetAxisRaw("Input1Y"));
+        if (Input.GetKeyDown(KeyCode.F))
+            this.stateMachine.ChangeState(player.attackState);
         if (input != Vector2.zero)
             this.stateMachine.ChangeState(player.moveState);
     }

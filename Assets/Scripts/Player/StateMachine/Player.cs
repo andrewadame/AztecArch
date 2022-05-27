@@ -8,8 +8,13 @@ public class Player : MonoBehaviour
     public PlayerStateMachine StateMachine { get; private set; }
     public IdleState idleState { get; private set; }
     public MoveState moveState { get; private set; }
+    public AttackState attackState { get; private set; }
+
 
     public Rigidbody2D playerRigidBody;
+    public SpriteRenderer spriteRenderer;
+
+    private Vector2 direction;
 
     public Animator Anim { get; private set; }
 
@@ -19,10 +24,13 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         StateMachine = new PlayerStateMachine();
-        playerData = new PlayerData();
-        idleState = new IdleState(this, StateMachine, playerData, "");
-        moveState = new MoveState(this, StateMachine, playerData, "");
+        idleState = new IdleState(this, StateMachine, playerData, "idle");
+        moveState = new MoveState(this, StateMachine, playerData, "walk");
+        attackState = new AttackState(this, StateMachine, playerData, "attack");
+
     }
 
     private void Start()
@@ -35,6 +43,22 @@ public class Player : MonoBehaviour
     private void Update()
     {
         StateMachine.currentState.LogicUpdate();
+    }
+
+    public void setDirection(Vector2 direction)
+    {
+        this.direction = direction;
+        if (direction.x < 0)
+            spriteRenderer.flipX = true;
+        else
+            spriteRenderer.flipX = false;
+        Anim.SetFloat("Position X", direction.x);
+        Anim.SetFloat("Position Y", direction.y);
+
+    }
+    public Vector2 getDirection()
+    {
+        return direction;
     }
 
 }
