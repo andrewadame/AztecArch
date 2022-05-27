@@ -8,7 +8,17 @@ public class Tile : MonoBehaviour
 { 
     public SpriteRenderer image;
     public DungeonGrid gridParent;     //Grid that you create 
-    public Material normal,highlited;  
+    public Material normal,highlited;
+
+    private void Awake()
+    {
+        image = GetComponent<SpriteRenderer>();
+    }
+
+    public void SetDungeon(DungeonGrid grid)
+    {
+        gridParent = grid;
+    }
 
     private void OnMouseEnter()
     {

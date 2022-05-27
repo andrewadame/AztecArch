@@ -7,19 +7,26 @@ public class DungeonGrid : MonoBehaviour
     public int height = 7,
         width = 5,
         spaceBetween;
-    public GameObject selected;
+
+    public GameObject selected; //will swap out but required temporarily 
     public GameObject floor;
     public GameObject road;
+    public GameObject Border;
+     
     public GameObject[,] tiles;
     public Vector3 startPos;
-    public bool EnableKeyControlls = true;
-   
+
+    public bool EnableKeyControlls = false; //toggle between build/play
+    public bool SelectMode = true;          //Choosing Tiles
+    public bool hasDropped = false;         //set block
+    public bool thisBoard  = true;          //governs which board to move to;
+
 
     private void Awake()
     {
-      
         tiles = new GameObject[height, width];
         CreateGrid();
+
     }
 
     //Fill grid in with 'grass'/default block 
@@ -29,7 +36,6 @@ public class DungeonGrid : MonoBehaviour
         {
             for(int j = 0; j < width; j++)
             {
-                 
                 GameObject temp = Instantiate(floor, startPos+ transform.position + new Vector3(spaceBetween * j, spaceBetween * i, 0) ,transform.rotation);
                 temp.GetComponent<Tile>().gridParent = this;
                 tiles[i, j] = temp;
@@ -126,6 +132,20 @@ public class DungeonGrid : MonoBehaviour
         Destroy(old);
     }
 
+    //Used to tile in place of gameobject
+    public void SwapTiles(GameObject tile)
+    {
+        GameObject old = selected;
+        Vector2Int oldPosition = GetSelectedPosition();
+        tiles[oldPosition.x, oldPosition.y] = tile;
+        tile = selected;
+        Tile temp = tile.AddComponent<Tile>();
+        temp.SetDungeon(this);
+        Destroy(old);
+    }
+
+
+    //Please no mouse is devil
     private void OnMouseEnter()
     {
         EnableKeyControlls = false;
