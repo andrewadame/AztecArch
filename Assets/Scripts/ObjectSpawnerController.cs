@@ -8,7 +8,7 @@ public class ObjectSpawnerController : MonoBehaviour
     public GameObject[] Objects;
     public float[] SpawnTierRatio;
     public GameObject tempSpawn;
-    
+    ItemSpawnerController spawnerController;
 
     public GameObject selected1,
                       selected2;
@@ -16,17 +16,19 @@ public class ObjectSpawnerController : MonoBehaviour
                        DungeonGrid2;
     public Material normal, 
                     highlight;
-
+    public bool finishedSpawning = false;
 
     private void Awake()
     {
+        spawnerController = FindObjectOfType<ItemSpawnerController>();
         Objects = new GameObject[Spawners.Length];
         for(int i = 0; i < Spawners.Length; i++)
         {
-            GameObject temp = Instantiate(tempSpawn, Spawners[i].transform);
+            GameObject temp = Instantiate(spawnerController.GetItemFromTier(SpawnTierRatio), Spawners[i].transform);
             temp.GetComponent<SpawnObject>().spawnerParent = Spawners[i];
             Objects[i] = temp;
         }
+        finishedSpawning = true;
     }
 
     public int GetSpawnerPosition(GameObject selecteded)
@@ -53,6 +55,6 @@ public class ObjectSpawnerController : MonoBehaviour
         {
             selected2 = null;
         } 
-        Objects[del] = Instantiate(tempSpawn, Spawners[del].transform);
+        Objects[del] = Instantiate(spawnerController.GetItemFromTier(SpawnTierRatio), Spawners[del].transform);
     }
 }

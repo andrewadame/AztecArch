@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemSpawnerController : MonoBehaviour
 {
     public ItemTierHolder[] TierSelection;
-    ObjectSpawnerController ObjectSpawner;
+    public ObjectSpawnerController ObjectSpawner;
     public GameObject defaultObject;
 
     private void Awake()
@@ -18,8 +18,9 @@ public class ItemSpawnerController : MonoBehaviour
 
     public GameObject GetItemFromTier(float[] TierOptions)
     {
-        GameObject itemTier = gameObject;
-
+        GameObject itemTier = ObjectSpawner.tempSpawn;
+        //Remove when building
+       
         float tierRange = Random.RandomRange(0, 100);
         if (tierRange < TierOptions[0])                      //base tier
         {

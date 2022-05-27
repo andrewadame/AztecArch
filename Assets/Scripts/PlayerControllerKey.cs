@@ -29,7 +29,7 @@ public class PlayerControllerKey : MonoBehaviour
             = Vector3.Lerp(spawnerController.Objects[increment1].transform.position, DungeonGrid1.Border.transform.position, 1 - 1/LerpSpeed) ;
             pos1 = new Vector2Int(0,0);
             SwitchSelected(DungeonGrid1, pos1);
-            Debug.Log(increment1);
+            //Debug.Log(increment1);
         }
         //BuildMode so move around 
         else
@@ -64,7 +64,7 @@ public class PlayerControllerKey : MonoBehaviour
             DungeonGrid2.Border.transform.position = Vector3.Lerp(spawnerController.Objects[increment2].transform.position, DungeonGrid2.Border.transform.position, 1 - 1 / LerpSpeed);
             pos2 = new Vector2Int(0, 0);
             SwitchSelected(DungeonGrid2, pos2);
-            Debug.Log(increment2);
+            //Debug.Log(increment2);
         }
         //BuildMode so move around 
         else
@@ -154,7 +154,7 @@ public class PlayerControllerKey : MonoBehaviour
                 DungeonGrid2.hasDropped = false;
             }
         }
-        if (DungeonGrid1.selected != null)
+        if (DungeonGrid1.selected != null && spawnerController.finishedSpawning)
         {
             DungeonGrid1.selected.GetComponent<Tile>().UnSelect();
         }
@@ -205,7 +205,7 @@ public class PlayerControllerKey : MonoBehaviour
                 DungeonGrid1.hasDropped = false;
             }
         }
-        if (DungeonGrid2.selected != null)
+        if (DungeonGrid2.selected != null && DungeonGrid1.selected != null && spawnerController.finishedSpawning)
         {
             DungeonGrid2.selected.GetComponent<Tile>().UnSelect();
         }
