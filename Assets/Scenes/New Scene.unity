@@ -201,7 +201,7 @@ Animator:
   m_GameObject: {fileID: 277086206}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2ee8e29786c529b47bb9ed0b18448114, type: 2}
+  m_Controller: {fileID: 9100000, guid: f7a3799210638e14ba8b2fad9fb06ab1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigidBody: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   playerData: {fileID: 11400000, guid: c8664ffe6bdf63f41833bf246894960d, type: 2}
 --- !u!4 &277086212
 Transform:
