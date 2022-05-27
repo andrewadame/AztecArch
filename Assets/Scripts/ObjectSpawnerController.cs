@@ -6,13 +6,12 @@ public class ObjectSpawnerController : MonoBehaviour
 {
     public GameObject[] Spawners;
     public GameObject[] Objects;
-    float[] SpawnTierRatio;
+    public float[] SpawnTierRatio;
     public GameObject tempSpawn;
-    public GameObject[] Tier1,Tier2,Tier3;
+    
 
     public GameObject selected1,
                       selected2;
-
     public DungeonGrid DungeonGrid1,
                        DungeonGrid2;
     public Material normal, 
@@ -45,7 +44,7 @@ public class ObjectSpawnerController : MonoBehaviour
     public void RemoveObject(GameObject obj)
     {
         int del = GetSpawnerPosition(obj);
-        Objects[del] = new GameObject();
+       
         if(obj == selected1)
         {
             selected1 = null;
@@ -53,7 +52,7 @@ public class ObjectSpawnerController : MonoBehaviour
         if (obj == selected2)
         {
             selected2 = null;
-        }
-        
+        } 
+        Objects[del] = Instantiate(tempSpawn, Spawners[del].transform);
     }
 }

@@ -6,6 +6,6 @@ using UnityEditor;
 
 public class ItemTierObject : ScriptableObject
 {
-    public string Tier;
+    public string TierName;
     public GameObject[] TierDrops;
 }

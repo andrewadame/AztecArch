@@ -4,5 +4,42 @@ using UnityEngine;
 
 public class ItemSpawnerController : MonoBehaviour
 {
-   
+    public ItemTierHolder[] TierSelection;
+    ObjectSpawnerController ObjectSpawner;
+    public GameObject defaultObject;
+
+    private void Awake()
+    {
+        if(TierSelection.Length == 0)
+        {
+            TierSelection = new ItemTierHolder[10];
+        }
+    }
+
+    public GameObject GetItemFromTier(float[] TierOptions)
+    {
+        GameObject itemTier = gameObject;
+
+        float tierRange = Random.RandomRange(0, 100);
+        if (tierRange < TierOptions[0])                      //base tier
+        {
+            return ChooseFromTier(TierSelection[0].ItemTier);
+        }
+        else if (tierRange < TierOptions[1])                      //base tier
+        {
+            return ChooseFromTier(TierSelection[1].ItemTier);
+        }
+        else if (tierRange < TierOptions[1])
+        {
+            return ChooseFromTier(TierSelection[1].ItemTier);
+        }
+        else
+            return defaultObject;
+    }
+
+    public GameObject ChooseFromTier(ItemTierObject itemTier)
+    {
+        float tierObject = Random.RandomRange(0, itemTier.TierDrops.Length);
+        return itemTier.TierDrops[Mathf.CeilToInt(tierObject) % itemTier.TierDrops.Length];
+    }
 }

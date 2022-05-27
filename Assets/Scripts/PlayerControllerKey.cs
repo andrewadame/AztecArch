@@ -194,7 +194,7 @@ public class PlayerControllerKey : MonoBehaviour
             spawnerController.selected2.GetComponent<SpawnObject>().pickedUp = false;
             spawnerController.selected2.GetComponent<SpawnObject>().DoDrop(grid);
             grid.hasDropped = true;
-            DungeonGrid1.SelectMode = true;
+            DungeonGrid2.SelectMode = true;
         }
         if (Input.GetKeyDown(KeyCode.RightControl))
         {
@@ -202,7 +202,7 @@ public class PlayerControllerKey : MonoBehaviour
             {
                 spawnerController.selected2.GetComponent<SpawnObject>().PickUp(grid);
                 DungeonGrid2.SelectMode = false;
-                DungeonGrid2.hasDropped = false;
+                DungeonGrid1.hasDropped = false;
             }
         }
         if (DungeonGrid2.selected != null)
