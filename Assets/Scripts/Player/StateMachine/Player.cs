@@ -47,14 +47,17 @@ public class Player : MonoBehaviour
 
     public void setDirection(Vector2 direction)
     {
-        this.direction = direction;
-        if (direction.x < 0)
-            spriteRenderer.flipX = true;
-        else
-            spriteRenderer.flipX = false;
-        Anim.SetFloat("Position X", direction.x);
-        Anim.SetFloat("Position Y", direction.y);
+        if (direction != Vector2.zero)
+        {
+            this.direction = direction;
+            if (direction.x < 0)
+                spriteRenderer.flipX = true;
+            else
+                spriteRenderer.flipX = false;
+            Anim.SetFloat("Position X", direction.x);
+            Anim.SetFloat("Position Y", direction.y);
 
+        }
     }
     public Vector2 getDirection()
     {
