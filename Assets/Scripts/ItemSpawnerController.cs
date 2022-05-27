@@ -24,15 +24,18 @@ public class ItemSpawnerController : MonoBehaviour
         float tierRange = Random.RandomRange(0, 100);
         if (tierRange < TierOptions[0])                      //base tier
         {
+            Debug.Log("tier 0");
             return ChooseFromTier(TierSelection[0].ItemTier);
         }
         else if (tierRange < TierOptions[1])                      //base tier
         {
+            Debug.Log("tier 1");
             return ChooseFromTier(TierSelection[1].ItemTier);
         }
-        else if (tierRange < TierOptions[1])
+        else if (tierRange < TierOptions[2])
         {
-            return ChooseFromTier(TierSelection[1].ItemTier);
+            Debug.Log("tier 2");
+            return ChooseFromTier(TierSelection[2].ItemTier);
         }
         else
             return defaultObject;

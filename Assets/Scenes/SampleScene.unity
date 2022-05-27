@@ -7840,8 +7840,8 @@ MonoBehaviour:
   - {fileID: 2016063768}
   Objects: []
   SpawnTierRatio:
-  - 50
-  - 90
+  - 30
+  - 60
   - 100
   tempSpawn: {fileID: 7038911570369002060, guid: fbb3e4753e56746499315b9619349315, type: 3}
   selected1: {fileID: 0}
@@ -7927,8 +7927,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TierSelection:
   - {fileID: 851517738}
-  - {fileID: 851517738}
-  - {fileID: 851517738}
+  - {fileID: 851517737}
+  - {fileID: 851517736}
   ObjectSpawner: {fileID: 851517734}
   defaultObject: {fileID: 7038911570369002060, guid: fbb3e4753e56746499315b9619349315, type: 3}
 --- !u!1 &900911421

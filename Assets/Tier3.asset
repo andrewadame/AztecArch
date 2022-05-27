@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TierName: Tier3
   TierDrops:
-  - {fileID: 7038911570369002060, guid: fbb3e4753e56746499315b9619349315, type: 3}
+  - {fileID: 4273896178020269520, guid: a998346909efbff45bb849c1de88d65e, type: 3}
