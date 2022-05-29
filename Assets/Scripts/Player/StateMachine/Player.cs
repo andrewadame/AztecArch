@@ -45,6 +45,11 @@ public class Player : MonoBehaviour
         StateMachine.currentState.LogicUpdate();
     }
 
+    public void AnimationFinishTrigger()
+    {
+        StateMachine.currentState.AnimationFinishTrigger();
+    }
+
     public void setDirection(Vector2 direction)
     {
         if (direction != Vector2.zero)

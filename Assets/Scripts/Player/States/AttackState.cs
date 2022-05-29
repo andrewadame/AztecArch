@@ -12,7 +12,6 @@ public class AttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
     }
 
     public override void Exit()
@@ -22,9 +21,12 @@ public class AttackState : PlayerState
 
     public override void LogicUpdate()
     {
-        if (Input.GetKeyUp(KeyCode.F))
-            this.stateMachine.ChangeState(player.idleState);
 
+    }
+
+    public override void AnimationFinishTrigger()
+    {
+        this.stateMachine.ChangeState(player.idleState);
     }
 
 }
