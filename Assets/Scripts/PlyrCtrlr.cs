@@ -6,7 +6,7 @@ public class PlyrCtrlr : MonoBehaviour
 {
     private Rigidbody2D plyrRgdBdy;     //Rigidbody of player
     //public int plyrNm;
-    private Vector3 dir;                //Direction of player
+    private Vector3 directionMoving;                //Direction of player
     private int lkDir = 0;              //Looking direction of player
     private bool mvng = false;          //Is player moving
 
@@ -43,6 +43,14 @@ public class PlyrCtrlr : MonoBehaviour
     const string PLYRSDEATK = "PlyrSdeAtk";
     const string PLYRDWNATK = "PlyrDwnAtk";
 
+
+    enum Direction { None, Up, Down, Left, Right, DownLeft, DownRight, UpLeft, UpRight };
+    private Direction lastDirection = Direction.Down;
+
+
+    private Direction lastDirectionFacing = Direction.Down;
+
+
     private void Awake()
     {
         plyrRgdBdy = GetComponent<Rigidbody2D>();
@@ -51,7 +59,7 @@ public class PlyrCtrlr : MonoBehaviour
         itm = FindObjectOfType<Item>();
 
         hlth = mxHlth;
-        
+
     }
 
     // Update is called once per frame
@@ -75,7 +83,13 @@ public class PlyrCtrlr : MonoBehaviour
         //////////////////////////////////////////////////////////
 
         //Direction player is moving
-        dir = new Vector3(input.x, input.y).normalized;
+        directionMoving = new Vector2(input.x, input.y).normalized;
+        var directionFacing = calculateDirectionMoving(directionMoving);
+        if (directionFacing != lastDirectionFacing && directionFacing != Direction.None)
+        {
+            lastDirectionFacing = directionFacing;
+            Debug.Log(lastDirectionFacing);
+        }
 
         //Player movement
         mvng = (input.x != 0 || input.y != 0);
@@ -86,10 +100,32 @@ public class PlyrCtrlr : MonoBehaviour
 
     }
 
+    private Direction calculateDirectionMoving(Vector2 inputs)
+    {
+        var retVal = Direction.None;
+        if (input.x < 0 && input.y < 0)
+            retVal = Direction.DownLeft;
+        else if (input.x < 0 && input.y > 0)
+            retVal = Direction.UpLeft;
+        else if (input.x > 0 && input.y < 0)
+            retVal = Direction.DownRight;
+        else if (input.x > 0 && input.y > 0)
+            retVal = Direction.UpRight;
+        else if (input.x > 0 && input.y == 0)
+            retVal = Direction.Right;
+        else if (input.x < 0 && input.y == 0)
+            retVal = Direction.Left;
+        else if (input.x == 0 && input.y > 0)
+            retVal = Direction.Up;
+        else if (input.x == 0 && input.y < 0)
+            retVal = Direction.Down;
+        return retVal;
+    }
+
     private void FixedUpdate()
     {
         //Player move
-        plyrRgdBdy.velocity = dir * mveSpd;
+        plyrRgdBdy.velocity = directionMoving * mveSpd;
 
 
         //Change direction and play animation
@@ -124,11 +160,11 @@ public class PlyrCtrlr : MonoBehaviour
         }
 
         //Attack and play animation
-        if(isAtkPrssd)
+        if (isAtkPrssd)
         {
             isAtkPrssd = false;
 
-            if(!isAtk)
+            if (!isAtk)
             {
                 isAtk = true;
                 Debug.Log("Attacking");
@@ -136,7 +172,7 @@ public class PlyrCtrlr : MonoBehaviour
                 {
                     ChangeAnimationState(PLYRDWNATK);
                 }
-                else if(lkDir == 1)
+                else if (lkDir == 1)
                 {
                     ChangeAnimationState(PLYRSDEATK);
                 }
